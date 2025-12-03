@@ -10,18 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Install Databricks CLI (new)
-        run: pip install databricks-cli --upgrade
+    - name: Install Databricks CLI (legacy)
+      run: pip install databricks-cli --upgrade
 
-      - name: Configure Databricks Auth
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: |
-          databricks configure --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
+    - name: Configure Databricks Auth
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      run: |
+        mkdir -p ~/.databricks
+        cat <<EOF > ~/.databricks/config
+        [DEFAULT]
+        host = $DATABRICKS_HOST
+        token = $DATABRICKS_TOKEN
+        EOF
 
-      - name: Deploy to Azure Databricks
-        run: |
-          databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy
+    - name: Deploy to Azure Databricks
+      run: |
+        databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy --overwrite
