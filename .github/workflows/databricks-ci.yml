@@ -24,7 +24,7 @@ jobs:
         echo "DATABRICKS_TOKEN: set"
 
     - name: Verify connection
-      run: databricks workspace ls
+      run: databricks workspace list
 
     - name: Deploy to Azure Databricks
       run: |
