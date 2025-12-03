@@ -21,12 +21,9 @@ jobs:
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
         mkdir -p ~/.databricks
-        cat <<EOF > ~/.databricks/config
-        [DEFAULT]
-        host = $DATABRICKS_HOST
-        token = $DATABRICKS_TOKEN
-        EOF
+        printf "[DEFAULT]\nhost = %s\ntoken = %s\n" "$DATABRICKS_HOST" "$DATABRICKS_TOKEN" > ~/.databricks/config
+        cat ~/.databricks/config
 
     - name: Deploy to Azure Databricks
       run: |
-          databricks workspace import_dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy -o
+        databricks workspace import_dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy -o
