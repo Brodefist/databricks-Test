@@ -4,7 +4,7 @@
     {
       "task_key": "data_cleaning",
       "notebook_task": {
-        "notebook_path": "/Workspace/Users/sachin.kumar@snp.com/GitDeploy/notebooks/01_data_transformation/data_cleaning",
+        "notebook_path": "/Workspace/Users/sachin.kumar@snp.com/GitDeploy/notebooks/data_cleaning",
         "source": "WORKSPACE"
       },
       "existing_cluster_id": "1124-094650-0nervcma",
@@ -16,7 +16,7 @@
         { "task_key": "data_cleaning" }
       ],
       "notebook_task": {
-        "notebook_path": "/Workspace/Users/sachin.kumar@snp.com/GitDeploy/notebooks/01_data_transformation/data_transformation",
+        "notebook_path": "/Workspace/Users/sachin.kumar@snp.com/GitDeploy/notebooks/data_transformation",
         "source": "WORKSPACE"
       },
       "existing_cluster_id": "1124-094650-0nervcma",
