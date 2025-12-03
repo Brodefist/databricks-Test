@@ -20,8 +20,8 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          databricks auth login --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
+          databricks configure --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
 
       - name: Deploy to Azure Databricks
         run: |
-          databricks workspace import-dir . /Workspace/GitDeploy --overwrite
+          databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy
