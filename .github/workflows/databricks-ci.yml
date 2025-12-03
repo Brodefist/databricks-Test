@@ -12,18 +12,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Databricks CLI (legacy)
-      run: pip install databricks-cli --upgrade
+    - name: Install NEW Databricks CLI
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
     - name: Configure Databricks Auth
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
-        mkdir -p ~/.databricks
-        printf "[DEFAULT]\nhost = %s\ntoken = %s\n" "$DATABRICKS_HOST" "$DATABRICKS_TOKEN" > ~/.databricks/config
-        cat ~/.databricks/config
+        databricks auth login --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
 
-    - name: Deploy to Azure Databricks
+    - name: Deploy to Azure Databricks Workspace
       run: |
-        databricks workspace import_dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy -o
+        databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy --overwrite
