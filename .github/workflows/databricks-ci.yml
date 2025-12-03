@@ -12,17 +12,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install NEW Databricks CLI
-      run: |
-        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+    - name: Setup Databricks CLI (official)
+      uses: databricks/setup-cli@main
 
     - name: Configure Databricks Auth
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
-        databricks auth login --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
+        echo "DATABRICKS_HOST: $DATABRICKS_HOST"
+        echo "DATABRICKS_TOKEN: set"
 
-    - name: Deploy to Azure Databricks Workspace
+    - name: Verify connection
+      run: databricks workspace ls
+
+    - name: Deploy to Azure Databricks
       run: |
-        databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy --overwrite
+        databricks workspace import-dir . \
+        /Workspace/Users/sachin.kumar@snp.com/GitDeploy \
+        --overwrite
