@@ -20,4 +20,4 @@ jobs:
         ls
         ls GitDeploy
         ls GitDeploy/pipeline_config
-        databricks jobs create --json @GitDeploy/pipeline_config/pipeline-validation-workflow.json
+        databricks jobs create --json @pipeline_config/pipeline-validation-workflow.json
