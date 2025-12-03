@@ -29,4 +29,4 @@ jobs:
 
     - name: Deploy to Azure Databricks
       run: |
-        databricks workspace import-dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy --overwrite
+          databricks workspace import_dir . /Workspace/Users/sachin.kumar@snp.com/GitDeploy -o
