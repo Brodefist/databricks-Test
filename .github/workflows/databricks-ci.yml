@@ -15,18 +15,14 @@ jobs:
     - name: Setup Databricks CLI (official)
       uses: databricks/setup-cli@main
 
-    - name: Configure Databricks Auth
+    - name: Authenticate to Azure Databricks
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
-        echo "DATABRICKS_HOST: $DATABRICKS_HOST"
-        echo "DATABRICKS_TOKEN: set"
+        echo "Authenticated with host: $DATABRICKS_HOST"
 
-    - name: Verify connection
-      run: databricks workspace list
-
-    - name: Deploy to Azure Databricks
+    - name: Deploy repo to Azure Databricks Workspace
       run: |
         databricks workspace import-dir . \
         /Workspace/Users/sachin.kumar@snp.com/GitDeploy \
