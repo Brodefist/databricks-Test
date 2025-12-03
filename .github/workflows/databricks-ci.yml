@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Databricks CLI (new)
+        run: pip install databricks-cli --upgrade
+
+      - name: Configure Databricks Auth
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks auth login --host "$DATABRICKS_HOST" --token "$DATABRICKS_TOKEN"
+
+      - name: Deploy to Azure Databricks
+        run: |
+          databricks workspace import-dir . /Workspace/GitDeploy --overwrite
